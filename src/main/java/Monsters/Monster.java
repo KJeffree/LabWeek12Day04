@@ -1,6 +1,8 @@
 package Monsters;
 
-public class Monster {
+import Interfaces.IFight;
+
+public class Monster implements IFight {
 
     private int hp;
     private String type;
@@ -26,11 +28,11 @@ public class Monster {
         return type;
     }
 
-    public int getAttack() {
+    public int totalAttack() {
         return attack;
     }
 
-    public int getDefence() {
+    public int totalDefence() {
         return defence;
     }
 }

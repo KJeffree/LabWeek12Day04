@@ -17,7 +17,7 @@ public class MonsterTest {
     public void canGetMonsterDetails(){
         assertEquals(50, this.monster.getHp());
         assertEquals("Orc", this.monster.getType());
-        assertEquals(4, this.monster.getAttack());
-        assertEquals(7, this.monster.getDefence());
+        assertEquals(4, this.monster.totalAttack());
+        assertEquals(7, this.monster.totalDefence());
     }
 }

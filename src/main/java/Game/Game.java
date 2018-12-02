@@ -1,8 +1,8 @@
 package Game;
 
+import Interfaces.IFight;
 import Interfaces.IObject;
 import Monsters.Monster;
-import Player.Player;
 import Rooms.MonsterRoom;
 import Rooms.Room;
 import Rooms.TreasureRoom;
@@ -11,7 +11,6 @@ import java.util.Random;
 
 
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 
 public class Game {
@@ -24,22 +23,13 @@ public class Game {
         this.objects = objects;
     }
 
-    public String playerAttacksMonster(Monster monster,Player player){
-        int damage = ((player.getAttack()*3 - monster.getDefence()*2)/2);
+    public String attack(IFight attacker, IFight defender){
+        int damage = ((attacker.totalAttack()*3 - defender.totalDefence()*2)/2);
         if( damage <= 0 ){
             damage = 1;
         }
-        monster.setHp(monster.getHp()-damage);
-        return "You Dealt " + damage + " Damage!";
-    }
-
-    public String monsterAttacksPlayer(Monster monster, Player player){
-        int damage = ((monster.getAttack()*3 - player.getDefence()*2)/2);
-        if(damage <= 0){
-            damage = 1;
-        }
-        player.setHp(player.getHp() - damage);
-        return "Monster Dealt " + damage + " Damage!";
+        defender.setHp(defender.getHp()-damage);
+        return attacker.getType() + " Dealt " + damage + " Damage!";
     }
 
     public Room generateRandomRoom(){

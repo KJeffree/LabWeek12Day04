@@ -94,22 +94,22 @@ public class GameTest {
 
     @Test
     public void playerCanAttackMonster(){
-        String result = game.playerAttacksMonster(monster, tank);
+        String result = game.attack(tank, monster);
         assertEquals(41, this.monster.getHp());
-        assertEquals("You Dealt 9 Damage!", result);
+        assertEquals("Knight Dealt 9 Damage!", result);
     }
 
     @Test
     public void monsterCanAttackPlayer(){
-        String result = game.monsterAttacksPlayer(monster, tank);
+        String result = game.attack(monster, tank);
         assertEquals(99, this.tank.getHp());
-        assertEquals("Monster Dealt 1 Damage!", result);
+        assertEquals("Orc Dealt 1 Damage!", result);
     }
 
-    @Test
-    public void canGetRandomRoom(){
-        Room room = game.generateRandomRoom();
-        int gold =((TreasureRoom) room).getGold();
-    }
+//    @Test
+//    public void canGetRandomRoom(){
+//        Room room = game.generateRandomRoom();
+//        int gold =((TreasureRoom) room).getGold();
+//    }
 
 }

@@ -1,10 +1,14 @@
 package Player;
 
+import Interfaces.IFight;
+import Interfaces.IObject;
+import Interfaces.IPickUpObject;
 import Potions.Potion;
+import Rooms.Room;
 
 import java.util.ArrayList;
 
-public class Healer extends Player{
+public class Healer extends Player implements IFight, IPickUpObject {
 
 
     private ArrayList<Potion> potions;
@@ -83,7 +87,13 @@ public class Healer extends Player{
         return "Not Enough Doses";
     }
 
-
-
+    public String pickUpObject(Room room){
+        IObject object = room.getObject();
+        if (object instanceof Potion){
+            this.potions.add((Potion)object);
+            return object.getType() + "Picked Up!";
+        }
+        return "Cannot pick up " + object.getType();
+    }
 
 }

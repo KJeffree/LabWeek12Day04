@@ -1,9 +1,13 @@
 package Player;
 
+import Interfaces.IFight;
+import Interfaces.IObject;
+import Interfaces.IPickUpObject;
 import Pets.Pet;
+import Rooms.Room;
 import Spells.Spell;
 
-public class Mage extends Player{
+public class Mage extends Player implements IFight, IPickUpObject {
 
     private Spell spell;
     private Pet pet;
@@ -35,10 +39,19 @@ public class Mage extends Player{
     }
 
     public int totalDefence(){
-        return this.pet.getDefence() + this.defence;
+        return this.pet.totalDefence() + this.defence;
     }
 
     public int petAttack() {
-        return this.pet.getAttack();
+        return this.pet.totalAttack();
+    }
+
+    public String pickUpObject(Room room){
+        IObject object = room.getObject();
+        if (object instanceof Spell && (((Spell) object).getDamage()) > this.spell.getDamage()){
+            setSpell((Spell) object);
+            return object.getType() + "Equipped!";
+        }
+        return "Cannot pick up" + object.getType();
     }
 }

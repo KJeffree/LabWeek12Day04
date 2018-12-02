@@ -1,6 +1,8 @@
 package Pets;
 
-public class Pet {
+import Interfaces.IFight;
+
+public class Pet implements IFight {
 
     private int hp;
     private String type;
@@ -26,11 +28,12 @@ public class Pet {
         return type;
     }
 
-    public int getAttack() {
+    public int totalAttack() {
         return attack;
     }
 
-    public int getDefence() {
+    public int totalDefence() {
         return defence;
     }
+
 }

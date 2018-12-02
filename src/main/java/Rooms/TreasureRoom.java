@@ -11,7 +11,11 @@ public class TreasureRoom extends Room  {
         this.gold = gold;
     }
 
-    public int getGold() {
-        return gold;
+    public int getGold(){
+        return this.gold;
+    }
+
+    public void setGold(int gold){
+        this.gold = gold;
     }
 }
