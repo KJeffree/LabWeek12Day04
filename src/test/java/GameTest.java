@@ -8,7 +8,6 @@ import Player.Mage;
 import Player.Tank;
 import Potions.Potion;
 import Rooms.MonsterRoom;
-import Rooms.Room;
 import Rooms.TreasureRoom;
 import Spells.Spell;
 import Weapons.Weapon;
@@ -44,6 +43,7 @@ public class GameTest {
     Potion defencePotion;
 
     MonsterRoom room;
+    TreasureRoom treasureRoom;
 
     @Before
     public void before(){
@@ -95,6 +95,7 @@ public class GameTest {
         game = new Game(monsters,objects);
 
         room = new MonsterRoom(armour, monster4);
+        treasureRoom = new TreasureRoom(weapon, 65);
     }
 
     @Test
@@ -116,6 +117,26 @@ public class GameTest {
         game.attack(tank, monster4);
         String result = game.attack(tank, monster4);
         assertEquals("Knight Has Defeated The Goblin!", result);
+    }
+
+    @Test
+    public void cannotExitRoomIfMonsterStillAlive(){
+        game.setCurrentRoom(room);
+        assertEquals("You Must Defeat The Monster Before You Can Leave!", game.exitRoom());
+    }
+
+    @Test
+    public void canExitRoomIfMonsterIsDefeated(){
+        game.setCurrentRoom(room);
+        game.attack(tank, room.getMonster());
+        game.attack(tank, room.getMonster());
+        assertEquals("You have moved to the next room", game.exitRoom());
+    }
+
+    @Test
+    public void canExitRoomIfInTreasureRoom(){
+        game.setCurrentRoom(treasureRoom);
+        assertEquals("You have moved to the next room", game.exitRoom());
     }
 
 

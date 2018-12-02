@@ -1,5 +1,6 @@
 package Rooms;
 
+import Game.Game;
 import Interfaces.IObject;
 
 public abstract class Room {
@@ -13,4 +14,5 @@ public abstract class Room {
     public IObject getObject() {
         return object;
     }
+
 }

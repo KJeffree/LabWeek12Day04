@@ -17,10 +17,12 @@ public class Game {
 
     private ArrayList<Monster> monsters;
     private ArrayList<IObject> objects;
+    private Room currentRoom;
 
     public Game(ArrayList<Monster> monsters,ArrayList<IObject> objects){
         this.monsters = monsters;
         this.objects = objects;
+        this.currentRoom = null;
     }
 
     public String attack(IFight attacker, IFight defender){
@@ -36,7 +38,7 @@ public class Game {
         return attacker.getType() + " Dealt " + damage + " Damage! " + defender.getType() + " Has " + defender.getHp() + " HealthPoints left!";
     }
 
-    public Room generateRandomRoom(){
+    public void generateRandomRoom(){
         Random rand = new Random();
         int roomType= rand.nextInt(2);
         int monsterIndex = rand.nextInt(5);
@@ -44,11 +46,30 @@ public class Game {
         int treasureAmount = rand.nextInt(100)+10;
         if(roomType == 0){
             Room room = new MonsterRoom(this.objects.get(objectIndex),this.monsters.get(monsterIndex));
-            return room;
+            this.currentRoom = room;
         }
         else{
             Room room = new TreasureRoom(this.objects.get(objectIndex),treasureAmount);
-            return room;
+            this.currentRoom = room;
+        }
+    }
+
+    public void setCurrentRoom(Room room){
+        this.currentRoom = room;
+    }
+
+    public String exitRoom(){
+        if (this.currentRoom instanceof TreasureRoom){
+            this.generateRandomRoom();
+            return "You have moved to the next room";
+        } else {
+            boolean monsterDefeatStatus = ((MonsterRoom)this.currentRoom).isMonsterDefeated();
+            if (monsterDefeatStatus){
+                this.generateRandomRoom();
+                return "You have moved to the next room";
+            } else {
+                return "You Must Defeat The Monster Before You Can Leave!";
+            }
         }
     }
 }

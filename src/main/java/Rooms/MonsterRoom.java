@@ -1,5 +1,6 @@
 package Rooms;
 
+import Game.Game;
 import Interfaces.IObject;
 import Monsters.Monster;
 
@@ -14,5 +15,13 @@ public class MonsterRoom extends Room {
 
     public Monster getMonster() {
         return monster;
+    }
+
+    public boolean isMonsterDefeated(){
+        if (this.monster.getHp() > 0){
+            return false;
+        } else {
+            return true;
+        }
     }
 }

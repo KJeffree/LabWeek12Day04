@@ -1,4 +1,5 @@
 import Armour.Armour;
+import Game.Game;
 import Interfaces.IObject;
 import Monsters.Monster;
 import Potions.Potion;
@@ -27,6 +28,8 @@ public class RoomTest {
     Potion healPotion;
     Potion attackPotion;
     Potion defencePotion;
+
+    Game game;
 
 
     @Before
@@ -61,6 +64,8 @@ public class RoomTest {
 
         monsterRoom = new MonsterRoom(armour,monster1);
         treasureRoom = new TreasureRoom(healPotion,100);
+
+        game = new Game(monsters, objects);
     }
 
 
@@ -79,6 +84,5 @@ public class RoomTest {
     public void canGetMonster(){
         assertEquals(monster1,this.monsterRoom.getMonster());
     }
-
 
 }

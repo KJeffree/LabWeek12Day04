@@ -1,5 +1,6 @@
 package Rooms;
 
+import Game.Game;
 import Interfaces.IObject;
 
 public class TreasureRoom extends Room  {
