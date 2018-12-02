@@ -25,11 +25,15 @@ public class Game {
 
     public String attack(IFight attacker, IFight defender){
         int damage = ((attacker.totalAttack()*3 - defender.totalDefence()*2)/2);
+        if (damage > defender.getHp()){
+            defender.setHp(0);
+            return attacker.getType() + " Has Defeated The " + defender.getType() + "!";
+        }
         if( damage <= 0 ){
             damage = 1;
         }
         defender.setHp(defender.getHp()-damage);
-        return attacker.getType() + " Dealt " + damage + " Damage!";
+        return attacker.getType() + " Dealt " + damage + " Damage! " + defender.getType() + " Has " + defender.getHp() + " HealthPoints left!";
     }
 
     public Room generateRandomRoom(){

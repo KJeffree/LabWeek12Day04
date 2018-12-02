@@ -7,6 +7,7 @@ import Player.Healer;
 import Player.Mage;
 import Player.Tank;
 import Potions.Potion;
+import Rooms.MonsterRoom;
 import Rooms.Room;
 import Rooms.TreasureRoom;
 import Spells.Spell;
@@ -42,6 +43,8 @@ public class GameTest {
     Potion attackPotion;
     Potion defencePotion;
 
+    MonsterRoom room;
+
     @Before
     public void before(){
 
@@ -65,7 +68,7 @@ public class GameTest {
         monster1 = new Monster(50, "Orc", 4, 7);
         monster2 = new Monster(100, "Dragon", 10, 7);
         monster3 = new Monster(75, "Troll", 6, 3);
-        monster4 = new Monster(50, "Goblin", 2, 2);
+        monster4 = new Monster(20, "Goblin", 2, 2);
         monster5 = new Monster(50, "Skeleton", 5, 1);
 
         monsters.add(monster1);
@@ -90,21 +93,31 @@ public class GameTest {
 
 
         game = new Game(monsters,objects);
+
+        room = new MonsterRoom(armour, monster4);
     }
 
     @Test
     public void playerCanAttackMonster(){
         String result = game.attack(tank, monster);
         assertEquals(41, this.monster.getHp());
-        assertEquals("Knight Dealt 9 Damage!", result);
+        assertEquals("Knight Dealt 9 Damage! Orc Has 41 HealthPoints left!", result);
     }
 
     @Test
     public void monsterCanAttackPlayer(){
         String result = game.attack(monster, tank);
         assertEquals(99, this.tank.getHp());
-        assertEquals("Orc Dealt 1 Damage!", result);
+        assertEquals("Orc Dealt 1 Damage! Knight Has 99 HealthPoints left!", result);
     }
+
+    @Test
+    public void monsterCanBeDefeated(){
+        game.attack(tank, monster4);
+        String result = game.attack(tank, monster4);
+        assertEquals("Knight Has Defeated The Goblin!", result);
+    }
+
 
 //    @Test
 //    public void canGetRandomRoom(){
